@@ -20,6 +20,7 @@
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "format:jsx": "prettier --write 'src/**/*.{js,jsx,scss,less}' && yarn lint:eslint --fix",
+    "format:prettier": "prettier --write 'src/**/*.{js,jsx,scss,less}'",
     "format": "yarn run format:jsx && yarn run format:css",
     "format:check": "prettier -c 'src/**/*.{js,jsx,scss,less}'",
     "format:css": "stylelint --fix --syntax scss \"src/**/*.scss\"",
@@ -54,6 +55,23 @@
     "stylelint": "^13.3.3",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-prettier": "^1.1.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,scss,less}": [
+      "prettier --write",
+      "git add"
+    ],
+    "src/**/*.{js,jsx}": [
+      "eslint"
+    ],
+    "src/**/*.{scss,less}": [
+      "stylelint"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "jest": {
     "snapshotSerializers": [
