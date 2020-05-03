@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import Loader from 'components/LayoutComponents/Loader';
 
@@ -7,7 +7,7 @@ const loadable = (loader) =>
   Loadable({
     loader,
     delay: false,
-    loading: () => <Loader />,
+    loading: () => <Loader spinning />,
   });
 
 const routes = [
