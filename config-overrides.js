@@ -1,13 +1,15 @@
 // eslint-disable-next-line
-const { override, addBabelPlugin, addWebpackAlias, fixBabelImports, addLessLoader, useEslintRc } = require('customize-cra');
+const { override, addBabelPlugin, addWebpackAlias, fixBabelImports, addLessLoader, useEslintRc  } = require('customize-cra');
+const path = require('path');
 
 module.exports = override(
   addBabelPlugin('react-hot-loader/babel'),
-  useEslintRc(),
+  useEslintRc(path.resolve(__dirname, '.eslintrc')),
   addWebpackAlias({
     'react-dom': '@hot-loader/react-dom',
   }),
-  fixBabelImports('antd', {
+  fixBabelImports('import', {
+    libraryName: 'antd',
     libraryDirectory: 'es',
     style: true,
   }),

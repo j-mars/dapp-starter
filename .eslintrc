@@ -1,5 +1,5 @@
 {
-  "extends": ["react-app","airbnb", "@atolye15/eslint-config-base", "prettier/react"],
+  "extends": ["react-app", "airbnb", "@atolye15/eslint-config-base", "prettier/react"],
   "plugins": ["react", "jsx-a11y"],
   "env": {
     "browser": true
@@ -10,6 +10,7 @@
     "react/button-has-type": "off",
     "eslint-comments/no-unlimited-disable": "off",
     "eslint-comments/disable-enable-pair": "off",
+    "no-console": 0,
     "import/no-extraneous-dependencies": [
       "error",
       {
