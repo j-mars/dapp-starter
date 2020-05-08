@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from 'assets/icons/logo.svg';
-import { Button } from 'antd';
 
 function Home() {
   return (
@@ -8,7 +7,6 @@ function Home() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello</p>
-        <Button type="primary">Button</Button>
         <a
           className="App-link"
           href="https://reactjs.org"

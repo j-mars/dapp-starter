@@ -1,4 +1,4 @@
-import { actions } from './actions'
+import { actions } from './actions';
 
 const initialState = {
   authorized: false,
@@ -10,41 +10,41 @@ const initialState = {
   web3: null,
   signingOut: false,
   isLoggedIn: false,
-}
+};
 
 export default function loginReducer(state = initialState, action) {
-  let reduced
+  let reduced;
   switch (action.type) {
     case actions.CHANGE_AUTHORIZATION:
       reduced = {
         ...state,
         ...action.payload,
-      }
-      break
+      };
+      break;
 
     case actions.INITIALIZING_WEB3:
       reduced = {
         ...state,
         ...action.payload,
-      }
-      break
+      };
+      break;
 
     case actions.SET_WEB3:
       reduced = {
         ...state,
         ...action.payload,
-      }
-      break
+      };
+      break;
 
     case actions.SIGNING_OUT:
       reduced = {
         ...state,
         ...action.payload,
-      }
-      break
+      };
+      break;
 
     default:
-      reduced = state
+      reduced = state;
   }
-  return reduced
+  return reduced;
 }

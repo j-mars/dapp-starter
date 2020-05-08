@@ -1,11 +1,15 @@
-import Web3Modal from 'web3modal'
-import Torus from '@toruslabs/torus-embed'
-import Fortmatic from 'fortmatic'
-import Squarelink from 'squarelink'
-import Portis from '@portis/web3'
-import WalletConnectProvider from '@walletconnect/web3-provider'
+import Web3Modal from 'web3modal';
+import Torus from '@toruslabs/torus-embed';
+import Fortmatic from 'fortmatic';
+import Squarelink from 'squarelink';
+import Portis from '@portis/web3';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
-const HTTP_ENDPOINT = 'https://127.0.0.1:8545'
+const httpEndpoint = process.env.REACT_APP_HTTP_ENDPOINT;
+const networkId = process.env.REACT_APP_NETWORK_ID;
+const squarelinkKey = process.env.REACT_APP_SQUARELINK_API_KEY;
+const fortmaticKey = process.env.REACT_APP_FORTMATIC_API_KEY;
+const portisKey = process.env.REACT_APP_PORTIS_API_KEY;
 
 const getWeb3Modal = () => {
   return new Web3Modal({
@@ -21,41 +25,41 @@ const getWeb3Modal = () => {
       torus: {
         package: Torus, // required
         options: {
-          network: HTTP_ENDPOINT,
+          network: httpEndpoint,
         },
       },
       squarelink: {
         package: Squarelink, // required
         options: {
-          id: 'fb7ce9a36cea240482fa',
+          id: squarelinkKey,
           network: {
-            url: HTTP_ENDPOINT,
-            chainId: 333,
+            url: httpEndpoint,
+            chainId: networkId,
           },
         },
       },
       fortmatic: {
         package: Fortmatic, // required
         options: {
-          key: 'pk_test_2C256CC84C3A479A',
+          key: fortmaticKey,
           network: {
-            rpcUrl: HTTP_ENDPOINT,
-            chainId: 333,
+            rpcUrl: httpEndpoint,
+            chainId: networkId,
           },
         },
       },
       portis: {
         package: Portis, // required
         options: {
-          id: '07af700e-01da-4762-ad4e-6e4723662e60',
+          id: portisKey,
           network: {
-            nodeUrl: HTTP_ENDPOINT,
-            chainId: 333,
+            nodeUrl: httpEndpoint,
+            chainId: networkId,
           },
         },
       },
     },
-  })
-}
+  });
+};
 
-export default getWeb3Modal
+export default getWeb3Modal;

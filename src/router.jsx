@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router'
+import { ConnectedRouter } from 'connected-react-router';
 import Loadable from 'react-loadable';
-import Loader from 'components/LayoutComponents/Loader';
+import Loader from 'components/LayoutComponents/Loader/index.jsx';
 import MainLayout from 'layouts/Main';
 
 const loadable = (loader) =>
@@ -27,20 +27,25 @@ const routes = [
 ];
 
 const Router = (props) => {
-  const { history } = props
+  const { history } = props;
 
-  return(
+  return (
     <ConnectedRouter history={history}>
       <MainLayout>
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/home" />} />
           {routes.map((route) => (
-            <Route path={route.path} component={route.component} key={route.path} exact={route.exact} />
+            <Route
+              path={route.path}
+              component={route.component}
+              key={route.path}
+              exact={route.exact}
+            />
           ))}
         </Switch>
       </MainLayout>
     </ConnectedRouter>
-  )
-  ;
+  );
+};
 
 export default Router;

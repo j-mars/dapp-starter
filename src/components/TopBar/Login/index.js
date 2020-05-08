@@ -1,29 +1,29 @@
-import React from 'react'
-import { Button } from 'antd'
-import { connect } from 'react-redux'
-import { changeAuthorization } from 'redux/login/actions'
+import React from 'react';
+import { Button } from 'antd';
+import { connect } from 'react-redux';
+import { changeAuthorization } from 'core/redux/login/actions';
 
-const Login = props => {
+const Login = (props) => {
   const {
     loading,
     changeAuthorizationProps,
     initializingWeb3,
     isFetchingThreeBox,
     registered,
-  } = props
+  } = props;
 
-  let text
+  let text;
 
   if (initializingWeb3 && !registered) {
-    text = 'Connecting'
+    text = 'Connecting';
   } else if (isFetchingThreeBox) {
-    text = 'Opening 3Box'
+    text = 'Opening 3Box';
   } else if (loading && !registered) {
-    text = 'Registering'
+    text = 'Registering';
   } else if (loading && registered) {
-    text = 'Fetching'
+    text = 'Fetching';
   } else {
-    text = 'Sign in'
+    text = 'Sign in';
   }
   return (
     <Button
@@ -34,18 +34,18 @@ const Login = props => {
     >
       {text}
     </Button>
-  )
-}
+  );
+};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   registered: state.login.registered,
   loading: state.login.end2endLoadingIndicator,
   initializingWeb3: state.login.initializingWeb3,
   isFetchingThreeBox: state.login.isFetchingThreeBox,
-})
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeAuthorizationProps: () => dispatch(changeAuthorization()),
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

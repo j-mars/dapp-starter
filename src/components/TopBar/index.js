@@ -1,45 +1,51 @@
-import React from 'react'
-import { EthAddress } from "rimble-ui"
-import { Link } from 'react-router-dom'
-import { Button } from 'antd'
-import { connect } from 'react-redux'
-import Login from './Login'
-import styles from './style.module.scss'
+import React from 'react';
+import { Button, Menu } from 'antd';
+import { connect } from 'react-redux';
+import { logout } from 'core/redux/login/actions';
+import Login from './Login';
 
 function TopBar(props) {
-  const { selectedAccount, isLoggedIn, signingOut } = props
+  const { selectedAccount, isLoggedIn, signingOut, dispatchLogout } = props;
 
-  let userArea
+  let userArea;
 
   if (isLoggedIn && !signingOut) {
-    userArea = (<Button type="primary" className="text-center login-form-button">
-    Logout
-  </Button>)
+    userArea = (
+      <Button type="primary" className="text-center login-form-button" onClick={dispatchLogout}>
+        Logout
+      </Button>
+    );
   } else if (isLoggedIn && signingOut) {
     userArea = (
       <Button type="primary" className="text-center login-form-button" disabled>
         Disconnecting
       </Button>
-    )
+    );
   } else {
-    userArea = <Login />
+    userArea = <Login />;
   }
   return (
-    <div className={styles.topbar}>
-      <div className="mr-auto">
-        <EthAddress address={selectedAccount} textLabels />
-      </div>
-      <div className="mr-4">
-        {userArea}
-      </div>
-    </div>
-  )
+    <>
+      <Menu style={{ float: 'left' }} theme="dark" mode="horizontal">
+        <Menu.Item key="1">Home</Menu.Item>
+        <Menu.Item key="2">Feed</Menu.Item>
+      </Menu>
+      <Menu style={{ float: 'right' }} theme="dark" mode="horizontal">
+        <Menu.Item key="1">{selectedAccount || 'Not connected'}</Menu.Item>
+        <Menu.Item key="2">{userArea}</Menu.Item>
+      </Menu>
+    </>
+  );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   selectedAccount: state.login.selectedAccount,
   isLoggedIn: state.login.isLoggedIn,
   signingOut: state.login.signingOut,
-})
+});
 
-export default connect(mapStateToProps, null)(TopBar)
+const mapDispatchToProps = (dispatch) => ({
+  dispatchLogout: () => dispatch(logout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopBar);

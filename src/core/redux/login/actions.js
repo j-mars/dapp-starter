@@ -4,11 +4,12 @@ export const actions = {
   INIT_WEB3: 'login/init-web3',
   INITIALIZING_WEB3: 'login/initializing-web3',
   SET_WEB3: 'login/web3-set',
-  LOGIN:'login/LOGIN',
+  LOGIN: 'login/LOGIN',
   LOGOUT: 'login/LOGOUT',
   SIGNING_OUT: 'login/signing-out',
-  CANCEL_WATCH_INJECTED_PROVIDER: 'login/stop-watching-injected-provider'
-}
+  LOGIN_SIGNOUT: 'login/signed-out',
+  CANCEL_WATCH_INJECTED_PROVIDER: 'login/stop-watching-injected-provider',
+};
 
 export const changeAuthorization = () => {
   return {
@@ -16,17 +17,17 @@ export const changeAuthorization = () => {
     payload: {
       authorized: true,
     },
-  }
-}
+  };
+};
 
 export const initWeb3 = () => {
   return {
     type: actions.INIT_WEB3,
-  }
-}
+  };
+};
 
 export const logout = () => {
   return {
     type: actions.LOGOUT,
-  }
-}
+  };
+};

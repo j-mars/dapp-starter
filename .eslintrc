@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb", "@atolye15/eslint-config-base", "prettier/react"],
+  "extends": ["react-app","airbnb", "@atolye15/eslint-config-base", "prettier/react"],
   "plugins": ["react", "jsx-a11y"],
   "env": {
     "browser": true
@@ -8,11 +8,20 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": "off",
     "react/button-has-type": "off",
+    "eslint-comments/no-unlimited-disable": "off",
+    "eslint-comments/disable-enable-pair": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {
         "devDependencies": ["config-overrides.js", "src/setupTests.ts", "src/**/*.test.{js,jsx}"]
       }
     ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
   }
 }
