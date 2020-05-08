@@ -1,7 +1,9 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router'
 import Loadable from 'react-loadable';
 import Loader from 'components/LayoutComponents/Loader';
+import MainLayout from 'layouts/Main';
 
 const loadable = (loader) =>
   Loadable({
@@ -24,13 +26,21 @@ const routes = [
   },
 ];
 
-const Router = () => (
-  <Switch>
-    <Route exact path="/" render={() => <Redirect to="/home" />} />
-    {routes.map((route) => (
-      <Route path={route.path} component={route.component} key={route.path} exact={route.exact} />
-    ))}
-  </Switch>
-);
+const Router = (props) => {
+  const { history } = props
+
+  return(
+    <ConnectedRouter history={history}>
+      <MainLayout>
+        <Switch>
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+          {routes.map((route) => (
+            <Route path={route.path} component={route.component} key={route.path} exact={route.exact} />
+          ))}
+        </Switch>
+      </MainLayout>
+    </ConnectedRouter>
+  )
+  ;
 
 export default Router;

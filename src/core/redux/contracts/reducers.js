@@ -1,10 +1,10 @@
 // Smart-Contracts
-import Contract from 'abi/Contracts.json'
+import Gravity from 'abi/Gravity.json'
 import generateContractsInitialState from 'core/services/contracts'
 import { CONTRACTS_SYNC_START, CONTRACT_INITIALIZED, CONTRACTS_SYNCED } from './actions'
 
 // Contracts here
-export const Contracts = [Contract]
+export const Contracts = [Gravity]
 
 const initialState = {
   ...generateContractsInitialState(Contracts),
