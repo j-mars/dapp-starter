@@ -1,5 +1,13 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
+// Apollo
+import ApolloClient from 'apollo-client';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { WebSocketLink } from 'apollo-link-ws';
+import { HttpLink } from 'apollo-link-http';
+import { split } from 'apollo-link';
+import { getMainDefinition } from 'apollo-utilities';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 // Redux and Redux-saga
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -12,6 +20,31 @@ import { routerMiddleware } from 'connected-react-router';
 import Router from './router.jsx';
 
 import './assets/styles/App.css';
+
+const wsLink = new WebSocketLink({
+  uri: process.env.REACT_APP_GRAPHQL_WS_ENDPOINT,
+  options: {
+    reconnect: true,
+  },
+});
+const httpLink = new HttpLink({
+  uri: process.env.REACT_APP_GRAPHQL_HTTP_ENDPOINT,
+});
+
+const link = split(
+  // split based on operation type
+  ({ query }) => {
+    const { kind, operation } = getMainDefinition(query);
+    return kind === 'OperationDefinition' && operation === 'subscription';
+  },
+  wsLink,
+  httpLink,
+);
+
+const client = new ApolloClient({
+  link,
+  cache: new InMemoryCache(),
+});
 
 const sagaMiddleware = createSagaMiddleware();
 const routeMiddleware = routerMiddleware(history);
@@ -28,7 +61,9 @@ sagaMiddleware.run(rootSaga);
 function App() {
   return (
     <Provider store={store}>
-      <Router history={history} />
+      <ApolloProvider client={client}>
+        <Router history={history} />
+      </ApolloProvider>
     </Provider>
   );
 }

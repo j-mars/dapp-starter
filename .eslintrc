@@ -10,7 +10,7 @@
     "react/button-has-type": "off",
     "eslint-comments/no-unlimited-disable": "off",
     "eslint-comments/disable-enable-pair": "off",
-    "no-console": 0,
+    "no-console": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {
