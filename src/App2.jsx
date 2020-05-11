@@ -14,12 +14,12 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from 'core/redux/sagas';
 import rootReducer, { history } from 'core/redux/reducers';
-import logger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 // Router
 import { routerMiddleware } from 'connected-react-router';
 import Router from './router';
 
-import './assets/styles/App.css';
+import './global.scss';
 
 const wsLink = new WebSocketLink({
   uri: process.env.REACT_APP_GRAPHQL_WS_ENDPOINT,
@@ -50,6 +50,10 @@ const sagaMiddleware = createSagaMiddleware();
 const routeMiddleware = routerMiddleware(history);
 const middlewares = [sagaMiddleware, routeMiddleware];
 
+const logger = createLogger({
+  collapsed: (getState, action) => action.type === 'settings/ETH_RATE_UPDATE',
+});
+
 if (process.env.NODE_ENV === 'development' && true) {
   middlewares.push(logger);
 }
@@ -69,3 +73,5 @@ function App() {
 }
 
 export default hot(App);
+
+export { store, history };

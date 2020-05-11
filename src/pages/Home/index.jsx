@@ -15,7 +15,6 @@ const Cell = memo(({ columnIndex, rowIndex, style, data }) => {
   const singleColumnIndex = columnIndex + rowIndex * itemsPerRow;
   const card = gravatars[singleColumnIndex];
 
-  console.log(card);
   return (
     <div style={style}>
       {card && (
@@ -54,12 +53,9 @@ class CardsGrid extends PureComponent {
         <AutoSizer defaultWidth={1920} defaultHeight={1080}>
           {({ height, width }) => {
             const itemsPerRow = Math.floor(width / CARD_WIDTH);
-            console.log(itemsPerRow);
             const rowCount = Math.ceil(gravatars.length / itemsPerRow);
-            console.log(rowCount);
             const itemData = this.getItemData(itemsPerRow, gravatars);
 
-            console.log(itemData);
             return (
               <Grid
                 className={styles.grid}
@@ -84,20 +80,29 @@ class CardsGrid extends PureComponent {
 const Home = () => {
   const { data, loading } = useSubscription(gravatarsSubscription);
 
-  console.log(data);
   if (loading || !data) {
     return (
-      <div className="App">
-        <header className="App-header">Loading</header>
+      <div className="card">
+        <div className="card-header">
+          <div className="utils__title">
+            <strong>Gravatars</strong>
+          </div>
+        </div>
+        <div className="card-body">LOADING</div>
       </div>
     );
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="card">
+      <div className="card-header">
+        <div className="utils__title">
+          <strong>Gravatars</strong>
+        </div>
+      </div>
+      <div className="card-body">
         <CardsGrid gravatars={data.gravatars} />
-      </header>
+      </div>
     </div>
   );
 };

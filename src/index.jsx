@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import { setConfig } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import App from './App2';
 import * as serviceWorker from './serviceWorker';
 
 setConfig({

@@ -26,10 +26,6 @@ function TopBar(props) {
   }
   return (
     <>
-      <Menu style={{ float: 'left' }} theme="dark" mode="horizontal">
-        <Menu.Item key="1">Home</Menu.Item>
-        <Menu.Item key="2">Feed</Menu.Item>
-      </Menu>
       <Menu style={{ float: 'right' }} theme="dark" mode="horizontal">
         <Menu.Item key="1">{selectedAccount || 'Not connected'}</Menu.Item>
         <Menu.Item key="2">{userArea}</Menu.Item>

@@ -8,3 +8,29 @@
   position: relative;
   background: $white;
 }
+
+.title {
+  font-size: rem(16);
+  text-transform: uppercase;
+  font-weight: bold;
+  border-top: 1px solid $gray-border;
+  padding-top: rem(15);
+  padding-right: rem(100);
+  position: relative;
+  a {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.descr {
+  font-style: italic;
+  color: $black-lighten-more;
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+}
