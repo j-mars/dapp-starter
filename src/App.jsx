@@ -17,7 +17,7 @@ import rootReducer, { history } from 'core/redux/reducers';
 import logger from 'redux-logger';
 // Router
 import { routerMiddleware } from 'connected-react-router';
-import Router from './router.jsx';
+import Router from './router';
 
 import './assets/styles/App.css';
 

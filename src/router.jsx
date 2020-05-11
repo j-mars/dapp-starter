@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import Loadable from 'react-loadable';
-import Loader from 'components/LayoutComponents/Loader/index.jsx';
+import Loader from 'components/LayoutComponents/Loader/index';
 import MainLayout from 'layouts/Main';
 
 const loadable = (loader) =>
