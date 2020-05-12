@@ -10,7 +10,7 @@ html {
 
 body {
   font-family: $base__font-family;
-  color: $text-darken-more;
+  color: $gray-lighten-more;
   background: $black;
   line-height: 1.7;
   @media (max-width: $sm-max-width) {

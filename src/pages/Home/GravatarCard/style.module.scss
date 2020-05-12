@@ -3,17 +3,16 @@
 .card {
   padding: rem(20);
   border-radius: 5px;
-  border: 1px solid $gray-border;
   margin-bottom: rem(35);
   position: relative;
-  background: $white;
+  background: $craBlack;
 }
 
 .title {
   font-size: rem(16);
   text-transform: uppercase;
   font-weight: bold;
-  border-top: 1px solid $gray-border;
+  border-top: 1px solid $lightGren;
   padding-top: rem(15);
   padding-right: rem(100);
   position: relative;
@@ -27,7 +26,6 @@
 
 .descr {
   font-style: italic;
-  color: $black-lighten-more;
   text-align: center;
 }
 

@@ -1,10 +1,5 @@
 import { takeLatest, put, select, all } from 'redux-saga/effects';
-import {
-  INITIALIZE_CONTRACTS,
-  CONTRACTS_SYNC_START,
-  CONTRACT_INITIALIZED,
-  CONTRACTS_SYNCED,
-} from './actions';
+import { actions } from './actions';
 
 const getLoginState = (state) => state.login;
 const networkId = process.env.REACT_APP_NETWORK_ID;
@@ -14,7 +9,7 @@ function* initializeContractsSaga(action) {
   const { selectedAccount } = yield select(getLoginState);
 
   yield put({
-    type: CONTRACTS_SYNC_START,
+    type: actions.CONTRACTS_SYNC_START,
     payload: {
       contractsInitialized: false,
       contractsInitializing: true,
@@ -30,7 +25,7 @@ function* initializeContractsSaga(action) {
       });
 
       return put({
-        type: CONTRACT_INITIALIZED,
+        type: actions.CONTRACT_INITIALIZED,
         name: contract.contractName,
         synced: true,
         instance: web3Contract,
@@ -38,7 +33,7 @@ function* initializeContractsSaga(action) {
     }),
   );
   yield put({
-    type: CONTRACTS_SYNCED,
+    type: actions.CONTRACTS_SYNCED,
     payload: {
       contractsInitialized: true,
       contractsInitializing: false,
@@ -47,5 +42,5 @@ function* initializeContractsSaga(action) {
 }
 
 export default function* rootSaga() {
-  yield takeLatest(INITIALIZE_CONTRACTS, initializeContractsSaga);
+  yield takeLatest(actions.INITIALIZE_CONTRACTS, initializeContractsSaga);
 }

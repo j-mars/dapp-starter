@@ -30,6 +30,7 @@
     "lint:eslint": "eslint 'src/**/*.{js,jsx,scss,less}'"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.1.0",
     "@apollo/react-hooks": "^3.1.5",
     "@portis/web3": "^2.0.0-beta.55",
     "@toruslabs/torus-embed": "^1.3.4",

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 import styles from './style.module.scss';
 
 const Footer = () => (
@@ -12,7 +13,7 @@ const Footer = () => (
       <div className={styles.bottom}>
         <div>
           <a href="https://github.com/j-mars" target="_blank" rel="noopener noreferrer">
-            <Button>Github</Button>
+            <Button icon={<GithubOutlined />}>Github</Button>
           </a>
         </div>
       </div>

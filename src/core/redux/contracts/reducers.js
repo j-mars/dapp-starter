@@ -1,7 +1,7 @@
 // Smart-Contracts
 import Gravity from 'abi/Gravity.json';
 import generateContractsInitialState from 'core/services/contracts';
-import { CONTRACTS_SYNC_START, CONTRACT_INITIALIZED, CONTRACTS_SYNCED } from './actions';
+import { actions } from './actions';
 
 // Contracts here
 export const Contracts = [Gravity];
@@ -10,19 +10,24 @@ const initialState = {
   ...generateContractsInitialState(Contracts),
   contractsInitialized: false,
   contractsInitializing: false,
+  commitSendLoading: false,
+  commitMinedLoading: false,
+  commitError: null,
+  commitSendTx: null,
+  commitMinedReceipts: [],
 };
 
 export default function contractsReducer(state = initialState, action) {
   let reduced;
   switch (action.type) {
-    case CONTRACTS_SYNC_START:
+    case actions.CONTRACTS_SYNC_START:
       reduced = {
         ...state,
         ...action.payload,
       };
       break;
 
-    case CONTRACT_INITIALIZED:
+    case actions.CONTRACT_INITIALIZED:
       reduced = {
         ...state,
         [action.name]: {
@@ -33,13 +38,46 @@ export default function contractsReducer(state = initialState, action) {
       };
       break;
 
-    case CONTRACTS_SYNCED:
+    case actions.CONTRACTS_SYNCED:
       reduced = {
         ...state,
         ...action.payload,
       };
       break;
 
+    case actions.COMMIT_CHANGE_STATE:
+      reduced = {
+        ...state,
+        ...action.payload,
+      };
+      break;
+
+    case actions.COMMIT_SEND_SUCCESS:
+      reduced = {
+        ...state,
+        commitSendLoading: false,
+        commitError: false,
+        commitSendTx: action.commitSendTx,
+      };
+      break;
+
+    case actions.COMMIT_MINED_SUCCESS:
+      reduced = {
+        ...state,
+        commitMinedLoading: false,
+        commitError: false,
+        commitMinedReceipts: [...state.commitMinedReceipts, action.commitMinedReceipt],
+      };
+      break;
+
+    case actions.COMMIT_ERROR:
+      reduced = {
+        ...state,
+        commitSendLoading: false,
+        commitMinedLoading: false,
+        commitError: action.error,
+      };
+      break;
     default:
       reduced = state;
   }
