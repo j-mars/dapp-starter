@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { connect } from 'react-redux';
 import { changeAuthorization } from 'core/redux/login/actions';
+import styles from './style.module.scss';
 
 const Login = (props) => {
   const {
@@ -26,14 +27,11 @@ const Login = (props) => {
     text = 'Sign in';
   }
   return (
-    <Button
-      type="primary"
-      className="text-center login-form-button"
-      onClick={() => changeAuthorizationProps()}
-      loading={loading}
-    >
-      {text}
-    </Button>
+    <div className={styles.loginButton}>
+      <Button type="primary" onClick={() => changeAuthorizationProps()} loading={loading}>
+        {text}
+      </Button>
+    </div>
   );
 };
 

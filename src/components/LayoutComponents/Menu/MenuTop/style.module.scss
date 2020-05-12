@@ -1,5 +1,10 @@
 @import 'assets/styles/mixins.scss';
 
+.userArea {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
 .menu {
   :global(.ant-menu-item-divider) {
     height: 36px !important;

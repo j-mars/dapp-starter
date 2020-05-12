@@ -19,8 +19,10 @@ const appReducer = combineReducers({
 
 export default (state, action) => {
   if (action.type === actions.LOGIN_SIGNOUT) {
+    // preserve menu and settings
+    const { menu: men, settings: sets } = state;
     // eslint-disable-next-line
-    state = undefined;
+    state = { menu: men, settings: sets };
   }
   return appReducer(state, action);
 };

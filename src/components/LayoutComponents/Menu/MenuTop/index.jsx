@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Menu } from 'antd';
+import { Menu, Button } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import store from 'store';
 import _ from 'lodash';
+import { fetchMenu } from 'core/redux/menu/actions';
+import { logout } from 'core/redux/login/actions';
+import Login from './Login';
 import styles from './style.module.scss';
 
 const { SubMenu, Divider } = Menu;
 
 const MenuTop = (props) => {
   const [selectedKeys, setSelectedKeys] = useState(store.get('app.menu.selectedKeys') || []);
-  const { menuData } = props;
+  const {
+    menuData,
+    selectedAccount,
+    isLoggedIn,
+    signingOut,
+    dispatchLogout,
+    dispatchFetchMenu,
+  } = props;
 
-  console.log(menuData);
   const getSelectedKeys = () => {
     const flattenItems = (items, key) =>
       items.reduce((flattenedItems, item) => {
@@ -22,6 +31,7 @@ const MenuTop = (props) => {
         }
         return flattenedItems;
       }, []);
+
     const selectedItem = _.find(flattenItems(menuData, 'children'), [
       'url',
       props.location.pathname,
@@ -29,12 +39,28 @@ const MenuTop = (props) => {
     setSelectedKeys(selectedItem ? [selectedItem.key] : []);
   };
 
-  useEffect(getSelectedKeys(), []);
+  // Fetch Manu
+  useEffect(
+    function fetchMenuEffect() {
+      dispatchFetchMenu();
+    },
+    [dispatchFetchMenu],
+  );
+
+  // Update selected keys
+  useEffect(
+    function selectedKeysEffect() {
+      getSelectedKeys();
+    },
+    [menuData],
+  );
 
   const handleClick = (e) => {
-    store.set('app.menu.selectedKeys', [e.key]);
+    if (e.key !== 'account' && e.key !== 'userArea') {
+      store.set('app.menu.selectedKeys', [e.key]);
 
-    setSelectedKeys([e.key]);
+      setSelectedKeys([e.key]);
+    }
   };
 
   const generateMenuItems = () => {
@@ -102,6 +128,28 @@ const MenuTop = (props) => {
     });
   };
 
+  let userArea;
+
+  if (isLoggedIn && !signingOut) {
+    userArea = (
+      <div className={styles.userArea}>
+        <Button type="primary" className="text-center login-form-button" onClick={dispatchLogout}>
+          Logout
+        </Button>
+      </div>
+    );
+  } else if (isLoggedIn && signingOut) {
+    userArea = (
+      <div className={styles.userArea}>
+        <Button type="primary" className="text-center login-form-button" disabled>
+          Disconnecting
+        </Button>
+      </div>
+    );
+  } else {
+    userArea = <Login />;
+  }
+
   return (
     <div>
       <div className={styles.logo}>
@@ -111,6 +159,10 @@ const MenuTop = (props) => {
       </div>
       <Menu theme="dark" onClick={handleClick} selectedKeys={selectedKeys} mode="horizontal">
         {generateMenuItems()}
+        <Menu theme="dark" mode="horizontal" style={{ float: 'right' }}>
+          <Menu.Item key="account">{selectedAccount || 'Not connected'}</Menu.Item>
+          <Menu.Item key="userArea">{userArea}</Menu.Item>
+        </Menu>
       </Menu>
     </div>
   );
@@ -118,6 +170,14 @@ const MenuTop = (props) => {
 
 const mapStateToProps = (state) => ({
   menuData: state.menu.menuTopData,
+  selectedAccount: state.login.selectedAccount,
+  isLoggedIn: state.login.isLoggedIn,
+  signingOut: state.login.signingOut,
 });
 
-export default withRouter(connect(mapStateToProps, null)(MenuTop));
+const mapDispatchToProps = (dispatch) => ({
+  dispatchLogout: () => dispatch(logout()),
+  dispatchFetchMenu: () => dispatch(fetchMenu()),
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MenuTop));

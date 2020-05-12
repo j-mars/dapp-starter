@@ -2,17 +2,15 @@ import React, { useEffect } from 'react';
 import { BackTop, Layout } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import TopBar from 'components/TopBar';
 import { initWeb3 } from 'core/redux/login/actions';
 import { initializeContracts } from 'core/redux/contracts/actions';
 import { Contracts } from 'core/redux/contracts/reducers';
-import { fetchMenu } from 'core/redux/menu/actions';
 import MenuTop from 'components/LayoutComponents/Menu/MenuTop';
+import Footer from 'components/LayoutComponents/Footer';
 import classNames from 'classnames';
 
 function MainLayout(props) {
   const {
-    fetchMenuProps,
     isBorderless,
     isSquaredBorders,
     isFixedWidth,
@@ -24,14 +22,6 @@ function MainLayout(props) {
     initializeContractsProps,
     authorized,
   } = props;
-
-  // Fetch menu
-  useEffect(
-    function setMenu() {
-      fetchMenuProps();
-    },
-    [fetchMenuProps],
-  );
 
   // Connect to provider and init web3
   useEffect(
@@ -65,14 +55,12 @@ function MainLayout(props) {
     >
       <MenuTop />
       <BackTop />
-      <Layout>
-        <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          <TopBar />
-        </Layout.Header>
-        <Layout.Content style={{ height: '100%', position: 'relative' }}>
-          <div className="utils__content">{children}</div>
-        </Layout.Content>
-      </Layout>
+      <Layout.Content style={{ height: '100%', position: 'relative' }}>
+        <div className="utils__content">{children}</div>
+      </Layout.Content>
+      <Layout.Footer>
+        <Footer />
+      </Layout.Footer>
     </Layout>
   );
 }
@@ -90,7 +78,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   initWeb3Props: () => dispatch(initWeb3()),
   initializeContractsProps: (contracts, web3) => dispatch(initializeContracts(contracts, web3)),
-  fetchMenuProps: () => dispatch(fetchMenu()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainLayout));

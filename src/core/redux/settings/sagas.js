@@ -1,7 +1,7 @@
 import { all, takeEvery, put, delay, call, select, race, take } from 'redux-saga/effects';
 import store from 'store';
 import qs from 'qs';
-import { history, store as reduxStore } from 'App2';
+import { history, store as reduxStore } from 'App';
 import fetchRate from 'core/services/price';
 import actions from './actions';
 

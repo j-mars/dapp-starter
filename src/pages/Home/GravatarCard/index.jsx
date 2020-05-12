@@ -15,7 +15,7 @@ const GravatarCard = (props) => {
       <div className={styles.descr}>Id: {card.id}</div>
       <div className={styles.descr}>Owner: {utils.getShortAddress(card.owner)}</div>
       <div className={styles.centered}>
-        <Button primary>Update Gravatar</Button>
+        <Button type="primary">Update Gravatar</Button>
       </div>
     </div>
   );

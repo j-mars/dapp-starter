@@ -1,0 +1,5 @@
+body {
+  // overriding (making high level priority) antd styles by wrapping this styles body tag
+  @import 'import/backtop';
+  @import 'import/layout';
+}

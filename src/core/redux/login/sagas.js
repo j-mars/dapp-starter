@@ -5,6 +5,7 @@ import { notification } from 'antd';
 import Web3 from 'web3';
 import getWeb3Modal from 'core/services/initWeb3Modal';
 import cleanWeb3Modal from 'core/services/cleanWeb3Modal';
+import { FETCH_MENU } from 'core/redux/menu/actions';
 import { actions } from './actions';
 
 const getLoginState = (state) => state.login;
@@ -115,6 +116,10 @@ function* LOGOUT_SAGA() {
   });
 
   yield put(push(`/`));
+
+  yield put({
+    type: FETCH_MENU,
+  });
 }
 
 export default function* rootSaga() {
