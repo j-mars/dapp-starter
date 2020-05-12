@@ -7,6 +7,7 @@ import { initializeContracts } from 'core/redux/contracts/actions';
 import { Contracts } from 'core/redux/contracts/reducers';
 import MenuTop from 'components/LayoutComponents/Menu/MenuTop';
 import Footer from 'components/LayoutComponents/Footer';
+import Modal from 'components/Modals';
 import classNames from 'classnames';
 
 function MainLayout(props) {
@@ -55,6 +56,7 @@ function MainLayout(props) {
     >
       <MenuTop />
       <BackTop />
+      <Modal.UpdateNameModal />
       <Layout.Content style={{ height: '100%', position: 'relative' }}>
         <div className="utils__content">{children}</div>
       </Layout.Content>

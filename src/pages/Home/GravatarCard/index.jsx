@@ -2,10 +2,12 @@ import React from 'react';
 import { Button } from 'antd';
 import makeBlockie from 'ethereum-blockies-base64';
 import utils from 'utils';
+import { connect } from 'react-redux';
+import { toggleUpdateNameModal } from 'core/redux/modals/actions';
 import styles from './style.module.scss';
 
 const GravatarCard = (props) => {
-  const { card } = props;
+  const { card, dispatchToggleUpdateNameModal } = props;
   return (
     <div className={styles.card}>
       <div className={styles.title}>{card.displayName}</div>
@@ -15,10 +17,16 @@ const GravatarCard = (props) => {
       <div className={styles.descr}>Id: {card.id}</div>
       <div className={styles.descr}>Owner: {utils.getShortAddress(card.owner)}</div>
       <div className={styles.centered}>
-        <Button type="primary">Update Gravatar</Button>
+        <Button type="primary" onClick={dispatchToggleUpdateNameModal}>
+          Update Gravatar
+        </Button>
       </div>
     </div>
   );
 };
 
-export default GravatarCard;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchToggleUpdateNameModal: () => dispatch(toggleUpdateNameModal()),
+});
+
+export default connect(null, mapDispatchToProps)(GravatarCard);

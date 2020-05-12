@@ -5,6 +5,7 @@ import contracts from 'core/redux/contracts/reducers';
 import gravatars from 'core/redux/gravatars/reducers';
 import login from 'core/redux/login/reducers';
 import menu from 'core/redux/menu/reducers';
+import modals from 'core/redux/modals/reducers';
 import settings from 'core/redux/settings/reducers';
 import { actions } from 'core/redux/login/actions';
 
@@ -15,6 +16,7 @@ const appReducer = combineReducers({
   gravatars,
   login,
   menu,
+  modals,
   router: connectRouter(history),
   settings,
 });
