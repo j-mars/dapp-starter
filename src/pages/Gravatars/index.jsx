@@ -136,9 +136,6 @@ const Gravatars = (props) => {
       </div>
       <div className="card-body">
         <div className="row">
-          <div className="col-lg-8">
-            <CardsGrid gravatars={data.gravatars} />
-          </div>
           <div className="col-lg-4">
             <Table
               style={{
@@ -161,6 +158,9 @@ const Gravatars = (props) => {
                 }))
               }
             />
+          </div>
+          <div className="col-lg-8">
+            <CardsGrid gravatars={data.gravatars} />
           </div>
         </div>
       </div>

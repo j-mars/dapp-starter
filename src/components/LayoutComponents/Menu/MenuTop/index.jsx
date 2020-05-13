@@ -56,7 +56,14 @@ const MenuTop = (props) => {
   );
 
   const handleClick = (e) => {
-    if (e.key !== 'account' && e.key !== 'userArea') {
+    // Menu links forbidden to be selected
+    if (
+      !(
+        e.key === 'account' ||
+        e.key === 'userArea' ||
+        (e.key === 'customization' && !selectedAccount)
+      )
+    ) {
       store.set('app.menu.selectedKeys', [e.key]);
 
       setSelectedKeys([e.key]);

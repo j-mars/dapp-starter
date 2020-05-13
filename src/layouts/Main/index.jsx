@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BackTop, Layout } from 'antd';
+import { BackTop, Layout, Affix } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { initWeb3 } from 'core/redux/login/actions';
@@ -56,7 +56,9 @@ function MainLayout(props) {
         settings__menuTop: isMenuTop,
       })}
     >
-      <MenuTop />
+      <Affix>
+        <MenuTop />
+      </Affix>
       <BackTop />
       <Modal.CreateModal createModal={createModal} />
       <Modal.UpdateNameModal updateNameModal={updateNameModal} />

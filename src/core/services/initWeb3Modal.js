@@ -18,8 +18,9 @@ const getWeb3Modal = () => {
       walletconnect: {
         package: WalletConnectProvider, // required
         options: {
-          infuraId: 'xx',
-          network: 'testnet',
+          rpc: {
+            [networkId]: httpEndpoint,
+          },
         },
       },
       torus: {
