@@ -1,0 +1,19 @@
+@import 'assets/styles/mixins.scss';
+
+.grid > div {
+  position: relative;
+  margin: auto;
+  grid-gap: 1rem;
+}
+
+.headerButton {
+  background-color: $craBlack;
+}
+
+.headerButton:focus {
+  background-color: $secondary;
+}
+
+.headerButton:hover {
+  background-color: $secondary;
+}

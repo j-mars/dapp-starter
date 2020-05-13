@@ -2,13 +2,16 @@ import React from 'react';
 import { Modal, Form, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { toggleUpdateNameModal } from 'core/redux/modals/actions';
+import { updateGravatar } from 'core/redux/gravatars/actions';
 
 const UpdateGravatar = (props) => {
-  const { dispatchToggleUpdateNameModal, updateNameModal } = props;
+  const { dispatchToggleUpdateNameModal, dispatchUpdateGravatar, updateNameModal } = props;
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
+    const { displayName } = values;
+    dispatchUpdateGravatar(displayName);
     dispatchToggleUpdateNameModal();
   };
 
@@ -41,12 +44,9 @@ const UpdateGravatar = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  updateNameModal: state.modals.updateNameModal,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   dispatchToggleUpdateNameModal: () => dispatch(toggleUpdateNameModal()),
+  dispatchUpdateGravatar: (displayName) => dispatch(updateGravatar(displayName)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateGravatar);
+export default connect(null, mapDispatchToProps)(UpdateGravatar);

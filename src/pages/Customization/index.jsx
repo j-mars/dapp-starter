@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Feed() {
+function Customization() {
   return (
     <div className="card">
       <div className="card-header">
@@ -13,4 +13,4 @@ function Feed() {
   );
 }
 
-export default Feed;
+export default Customization;

@@ -1,14 +1,14 @@
 export default function getTopMenuData() {
   return [
     {
-      title: 'Home',
-      key: 'home',
-      url: '/home',
+      title: 'Gravatars',
+      key: 'gravatars',
+      url: '/gravatars',
     },
     {
-      title: 'Feed',
-      key: 'feed',
-      url: '/feed',
+      title: 'Customization',
+      key: 'customization',
+      url: '/customization',
     },
   ];
 }

@@ -22,6 +22,8 @@ function MainLayout(props) {
     initWeb3Props,
     initializeContractsProps,
     authorized,
+    createModal,
+    updateNameModal,
   } = props;
 
   // Connect to provider and init web3
@@ -56,7 +58,8 @@ function MainLayout(props) {
     >
       <MenuTop />
       <BackTop />
-      <Modal.UpdateNameModal />
+      <Modal.CreateModal createModal={createModal} />
+      <Modal.UpdateNameModal updateNameModal={updateNameModal} />
       <Layout.Content style={{ height: '100%', position: 'relative' }}>
         <div className="utils__content">{children}</div>
       </Layout.Content>
@@ -75,6 +78,8 @@ const mapStateToProps = (state) => ({
   isFixedWidth: state.settings.isFixedWidth,
   isMenuShadow: state.settings.isMenuShadow,
   isMenuTop: state.settings.isMenuTop,
+  createModal: state.modals.createModal,
+  updateNameModal: state.modals.updateNameModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({

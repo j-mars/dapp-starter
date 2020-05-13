@@ -2,6 +2,7 @@ import { actions } from './actions';
 
 const initialState = {
   updateNameModal: false,
+  createModal: false,
 };
 
 export default function modalsReducer(state = initialState, action) {
@@ -11,6 +12,13 @@ export default function modalsReducer(state = initialState, action) {
       reduced = {
         ...state,
         updateNameModal: !state.updateNameModal,
+      };
+      break;
+
+    case actions.TOGGLE_CREATE_MODAL:
+      reduced = {
+        ...state,
+        createModal: !state.createModal,
       };
       break;
 

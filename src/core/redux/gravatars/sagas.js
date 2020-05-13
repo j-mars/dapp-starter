@@ -78,7 +78,7 @@ function* CREATE_GRAVATAR_SAGA(action) {
 
   const { displayName } = action;
 
-  const { Gravatar } = yield select(getContractsState);
+  const { Gravity } = yield select(getContractsState);
 
   const { selectedAccount } = yield select(getLoginState);
 
@@ -86,7 +86,7 @@ function* CREATE_GRAVATAR_SAGA(action) {
   yield fork(handleGravatarCreation);
 
   try {
-    Gravatar.instance.methods
+    Gravity.instance.methods
       .createGravatar(displayName)
       .send({
         from: selectedAccount,
@@ -181,15 +181,17 @@ function* UPDATE_GRAVATAR_SAGA(action) {
 
   const { displayName } = action;
 
-  const { Gravatar } = yield select(getContractsState);
+  const { Gravity } = yield select(getContractsState);
 
   const { selectedAccount } = yield select(getLoginState);
 
   // fork to handle channel
   yield fork(handleGravatarUpdate);
 
+  console.log(Gravity);
+
   try {
-    Gravatar.instance.methods
+    Gravity.instance.methods
       .updateGravatarName(displayName)
       .send({
         from: selectedAccount,
@@ -222,6 +224,6 @@ function* UPDATE_GRAVATAR_SAGA(action) {
 export default function* rootSaga() {
   yield all([
     takeLatest(actions.CREATE_GRAVATAR, CREATE_GRAVATAR_SAGA),
-    (actions.UPDATE_GRAVATAR, UPDATE_GRAVATAR_SAGA),
+    takeLatest(actions.UPDATE_GRAVATAR, UPDATE_GRAVATAR_SAGA),
   ]);
 }

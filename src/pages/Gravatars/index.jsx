@@ -1,9 +1,13 @@
 import React, { PureComponent, memo } from 'react';
+import { Button, Table } from 'antd';
+import { connect } from 'react-redux';
 import memoize from 'memoize-one';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeGrid as Grid, areEqual } from 'react-window';
 import { useSubscription } from '@apollo/react-hooks';
 import gravatarsSubscription from 'core/graphql/gravatarsSubscription';
+import { toggleCreateModal } from 'core/redux/modals/actions';
+import utils from 'utils';
 import GravatarCard from './GravatarCard';
 import styles from './style.module.scss';
 
@@ -77,9 +81,9 @@ class CardsGrid extends PureComponent {
   }
 }
 
-const Home = () => {
+const Gravatars = (props) => {
   const { data, loading } = useSubscription(gravatarsSubscription);
-
+  const { web3, dispatchToggleCreateModal } = props;
   if (loading || !data) {
     return (
       <div className="card">
@@ -93,18 +97,83 @@ const Home = () => {
     );
   }
 
+  let createGravatarButton;
+
+  if (web3) {
+    createGravatarButton = (
+      <Button type="primary" className={styles.headerButton} onClick={dispatchToggleCreateModal}>
+        Create Gravatar
+      </Button>
+    );
+  }
+
+  const tableColumns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.id - b.id,
+    },
+    {
+      title: 'Display Name',
+      dataIndex: 'displayName',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.displayName.localeCompare(b.displayName),
+      sortDirections: ['descend'],
+    },
+    {
+      title: 'Owner',
+      dataIndex: 'owner',
+    },
+  ];
   return (
     <div className="card">
       <div className="card-header">
         <div className="utils__title">
           <strong>Gravatars</strong>
+          <div style={{ float: 'right' }}>{createGravatarButton}</div>
         </div>
       </div>
       <div className="card-body">
-        <CardsGrid gravatars={data.gravatars} />
+        <div className="row">
+          <div className="col-lg-8">
+            <CardsGrid gravatars={data.gravatars} />
+          </div>
+          <div className="col-lg-4">
+            <Table
+              style={{
+                minHeight: '100vh',
+                marginTop: '2em',
+                position: 'sticky',
+                top: '0px',
+              }}
+              className="utils__scrollTable"
+              columns={tableColumns}
+              rowKey="id"
+              tableLayout="auto"
+              pagination={false}
+              dataSource={
+                data &&
+                data.gravatars.map((gravatar) => ({
+                  id: gravatar.id,
+                  displayName: gravatar.displayName,
+                  owner: utils.getShortAddress(gravatar.owner),
+                }))
+              }
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => ({
+  web3: state.login.web3,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchToggleCreateModal: () => dispatch(toggleCreateModal()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Gravatars);

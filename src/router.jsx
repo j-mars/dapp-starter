@@ -15,14 +15,14 @@ const loadable = (loader) =>
 const routes = [
   // Feed
   {
-    path: '/feed',
-    component: loadable(() => import('pages/Feed')),
+    path: '/customization',
+    component: loadable(() => import('pages/Customization')),
     exact: true,
   },
   // Home
   {
-    path: '/home',
-    component: loadable(() => import('pages/Home')),
+    path: '/gravatars',
+    component: loadable(() => import('pages/Gravatars')),
   },
 ];
 
@@ -33,7 +33,7 @@ const Router = (props) => {
     <ConnectedRouter history={history}>
       <MainLayout>
         <Switch>
-          <Route exact path="/" render={() => <Redirect to="/home" />} />
+          <Route exact path="/" render={() => <Redirect to="/gravatars" />} />
           {routes.map((route) => (
             <Route
               path={route.path}
