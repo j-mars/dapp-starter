@@ -27,7 +27,7 @@
     "lint": "yarn lint:eslint && yarn lint:css",
     "lint:css": "stylelint \"src/**/*.{scss,less}\"",
     "lint:css:fix": "stylelint \"src/**/*.{scss,less}\" --fix",
-    "lint:eslint": "eslint 'src/**/*.{js,jsx,scss,less}'"
+    "lint:eslint": "eslint 'src/**/*.{js,jsx}'"
   },
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
