@@ -3,6 +3,7 @@ import { Modal, Form, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { toggleUpdateNameModal } from 'core/redux/modals/actions';
 import { updateGravatar } from 'core/redux/gravatars/actions';
+import styles from '../style.module.scss';
 
 const UpdateGravatar = (props) => {
   const { dispatchToggleUpdateNameModal, dispatchUpdateGravatar, updateNameModal } = props;
@@ -22,9 +23,11 @@ const UpdateGravatar = (props) => {
       okText="Submit"
       onCancel={() => dispatchToggleUpdateNameModal()}
       footer={[
-        <Button form="updateGravatarNameForm" key="submit" htmlType="submit">
-          Submit
-        </Button>,
+        <div className={styles.sendButton}>
+          <Button form="updateGravatarNameForm" key="submit" htmlType="submit">
+            Submit
+          </Button>
+        </div>,
       ]}
     >
       <Form

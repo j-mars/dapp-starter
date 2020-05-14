@@ -39,4 +39,17 @@
   background-color: $craBlack;
   color: $niceGreen;
   min-height: 50vh;
+  font-weight: bold;
+}
+
+.button:focus button {
+  background-color: $menuBg-darken;
+  border-color: transparent;
+  font-weight: bold;
+}
+
+.button:hover button {
+  background-color: $menuBg-darken;
+  border-color: transparent;
+  font-weight: bold;
 }

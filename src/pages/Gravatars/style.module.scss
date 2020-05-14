@@ -7,13 +7,22 @@
 }
 
 .headerButton {
+  border-color: transparent;
   background-color: $craBlack;
+  color: $niceGreen;
+  font-weight: bold;
 }
 
 .headerButton:focus {
-  background-color: $secondary;
+  background-color: $menuBg-darken;
+  border-color: transparent;
+  font-weight: bold;
+  color: $niceGreen;
 }
 
 .headerButton:hover {
-  background-color: $secondary;
+  background-color: $menuBg-darken;
+  border-color: transparent;
+  font-weight: bold;
+  color: $niceGreen;
 }

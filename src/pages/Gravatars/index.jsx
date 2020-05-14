@@ -1,5 +1,5 @@
 import React, { PureComponent, memo } from 'react';
-import { Button, Table } from 'antd';
+import { Button, Table, notification } from 'antd';
 import { connect } from 'react-redux';
 import memoize from 'memoize-one';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -83,7 +83,7 @@ class CardsGrid extends PureComponent {
 
 const Gravatars = (props) => {
   const { data, loading } = useSubscription(gravatarsSubscription);
-  const { web3, dispatchToggleCreateModal } = props;
+  const { web3, dispatchToggleCreateModal, selectedAccount } = props;
   if (loading || !data) {
     return (
       <div className="card">
@@ -97,11 +97,28 @@ const Gravatars = (props) => {
     );
   }
 
+  const foundMyGravatar =
+    data && data.gravatars.some((gravatar) => gravatar.owner === selectedAccount);
+
   let createGravatarButton;
 
-  if (web3) {
+  if (web3 && !foundMyGravatar) {
     createGravatarButton = (
       <Button type="primary" className={styles.headerButton} onClick={dispatchToggleCreateModal}>
+        Create Gravatar
+      </Button>
+    );
+  } else if (web3 && foundMyGravatar) {
+    createGravatarButton = (
+      <Button
+        type="primary"
+        className={styles.headerButton}
+        onClick={notification.warning({
+          message: 'Cannot create a Gravatar',
+          description: 'Already have one',
+          placement: 'bottomRight',
+        })}
+      >
         Create Gravatar
       </Button>
     );
@@ -126,6 +143,7 @@ const Gravatars = (props) => {
       dataIndex: 'owner',
     },
   ];
+
   return (
     <div className="card">
       <div className="card-header">
@@ -170,6 +188,7 @@ const Gravatars = (props) => {
 
 const mapStateToProps = (state) => ({
   web3: state.login.web3,
+  selectedAccount: state.login.selectedAccount,
 });
 
 const mapDispatchToProps = (dispatch) => ({

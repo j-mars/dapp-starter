@@ -3,6 +3,7 @@ import { Modal, Form, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { toggleCreateModal } from 'core/redux/modals/actions';
 import { createGravatar } from 'core/redux/gravatars/actions';
+import styles from '../style.module.scss';
 
 const CreateModal = (props) => {
   const { dispatchToggleCreateModal, dispatchCreateGravatar, createModal } = props;
@@ -22,9 +23,11 @@ const CreateModal = (props) => {
       okText="Submit"
       onCancel={() => dispatchToggleCreateModal()}
       footer={[
-        <Button form="createGravatarForm" key="submit" htmlType="submit">
-          Submit
-        </Button>,
+        <div className={styles.sendButton}>
+          <Button form="createGravatarForm" key="submit" htmlType="submit">
+            Submit
+          </Button>
+        </div>,
       ]}
     >
       <Form

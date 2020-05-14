@@ -41,7 +41,7 @@ function Customization(props) {
 
   if (gravatar) {
     gravatarArea = (
-      <Row justify="space-around" align="middle">
+      <Row justify="space-between" align="middle">
         <Col span={8}>
           <div className={styles.item}>
             <div className={styles.img}>
@@ -62,7 +62,7 @@ function Customization(props) {
         </Col>
         <Col span={4}>
           <div className={styles.button}>
-            <Button block type="primary" onClick={dispatchToggleUpdateNameModal}>
+            <Button block onClick={dispatchToggleUpdateNameModal}>
               Update Gravatar Name
             </Button>
           </div>
