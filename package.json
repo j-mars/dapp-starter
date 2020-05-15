@@ -115,9 +115,6 @@
       "pre-commit": "lint-staged"
     }
   },
-  "resolutions": {
-    "moment": "2.24.0"
-  },
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
