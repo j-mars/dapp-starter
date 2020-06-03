@@ -9,8 +9,8 @@
   padding: rem(40) rem(30) rem(30);
   margin: rem(0) rem(30) 0;
   border-radius: 5px 5px 0 0;
-  color: $niceGreen;
-  background: $craBlack-light;
+  color: $textDefault;
+  background: $mainCards;
   @media (max-width: $sm-max-width) {
     margin: 0 rem(10) !important;
   }

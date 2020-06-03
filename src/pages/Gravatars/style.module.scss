@@ -8,8 +8,8 @@
 
 .headerButton {
   border-color: transparent;
-  background-color: $craBlack;
-  color: $niceGreen;
+  background-color: $elements;
+  color: $textDefault;
   font-weight: bold;
 }
 
@@ -21,8 +21,8 @@
 }
 
 .headerButton:hover {
-  background-color: $menuBg-darken;
+  background-color: $mainBackground;
   border-color: transparent;
   font-weight: bold;
-  color: $niceGreen;
+  color: $white;
 }

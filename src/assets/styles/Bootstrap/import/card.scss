@@ -8,14 +8,14 @@
 .list-group-item,
 .card-footer {
   border-color: $gray-border;
-  background-color: $craBlack-light;
+  background-color: $mainCards;
 }
 
 .card-header,
 .card-footer {
   padding-left: rem(30);
   padding-right: rem(30);
-  background: $niceGreen;
+  background: $mainCards;
 
   &:last-child {
     border-radius: 0 0 calc(7px - 1px) calc(7px - 1px);

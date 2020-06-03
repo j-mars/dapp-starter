@@ -5,19 +5,19 @@
 /*  ANT DESIGN TABLE */
 
 .ant-table {
-  color: $niceGreen;
-  background-color: $craBlack !important;
+  color: $textDefault;
+  background-color: $elements !important;
 }
 .ant-table th,
 td,
 tr {
-  color: $niceGreen;
-  background-color: $craBlack !important;
+  color: $textDefault;
+  background-color: $elements !important;
 }
 
 .ant-table-column-sorters-with-tooltip {
   color: $white;
-  background-color: $craBlack !important;
+  background-color: $elements !important;
   font-weight: bold;
 }
 

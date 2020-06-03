@@ -10,8 +10,8 @@ html {
 
 body {
   font-family: $base__font-family;
-  color: $gray-lighten-more;
-  background: $black;
+  color: $textDefault;
+  background: $mainBackground;
   line-height: 1.7;
   @media (max-width: $sm-max-width) {
     font-size: 12px;

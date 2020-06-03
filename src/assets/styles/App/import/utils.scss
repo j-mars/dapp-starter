@@ -19,7 +19,7 @@
     color: $white;
     padding: rem(30);
     margin: 0 auto;
-    background-color: $craBlack;
+    background-color: $mainBackground;
     @media (max-width: $sm-max-width) {
       padding: rem(30) rem(10) !important;
       overflow-x: hidden;
@@ -28,11 +28,11 @@
 
   &__title {
     font-size: rem(17);
-    color: $white;
+    color: $textDefault;
   }
 
   &__titleDescription {
-    color: $text-lighten;
+    color: $textDefault;
   }
 
   // scrollable block
@@ -91,10 +91,10 @@
       padding: rem(10) rem(30);
       box-sizing: content-box;
       border-radius: 3px;
-      background: $gray-lighten;
+      background: $elementsBase;
       margin: rem(10);
       &:hover {
-        background: $black-lighten;
+        background: $elementsBase;
         color: $white;
       }
     }

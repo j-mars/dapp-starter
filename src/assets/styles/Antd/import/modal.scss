@@ -5,23 +5,23 @@
 /*  ANT DESIGN MODAL */
 
 .ant-modal-header {
-  background-color: $craBlack !important;
+  background-color: $mainBackground !important;
   border-bottom: 1px solid $menuBg !important;
 }
 
 .ant-modal-title {
-  color: $niceGreen !important;
+  color: $textDefault !important;
 }
 
 .ant-modal-close-icon {
-  color: $niceGreen !important;
+  color: $textDefault !important;
 }
 
 .ant-modal-body {
-  background-color: $craBlack !important;
+  background-color: $mainBackground !important;
 }
 
 .ant-modal-footer {
-  background-color: $craBlack !important;
+  background-color: $mainBackground !important;
   border-top: 1px solid $menuBg !important;
 }
