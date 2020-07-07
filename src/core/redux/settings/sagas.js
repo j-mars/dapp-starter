@@ -1,7 +1,8 @@
-import { all, takeEvery, put, delay, call, select, race, take } from 'redux-saga/effects';
+import { all, takeEvery, put, delay, call, select, race, take, fork } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
 import store from 'store';
 import qs from 'qs';
-import { history, store as reduxStore } from 'App';
+import { history } from 'App';
 import fetchRate from 'core/services/price';
 import actions from './actions';
 
@@ -109,45 +110,108 @@ function* RATE_CONTROLLER() {
   });
 }
 
-export function* SETUP() {
-  yield call(RATE_CONTROLLER);
+// load settings from url on app load
+function* changeSettings(search) {
+  const query = qs.parse(search, { ignoreQueryPrefix: true });
 
-  // load settings from url on app load
-  const changeSettings = (search) => {
-    const query = qs.parse(search, { ignoreQueryPrefix: true });
-    Object.keys(query).forEach((key) => {
-      reduxStore.dispatch({
+  yield all(
+    Object.keys(query).map((key) => {
+      return put({
         type: 'settings/CHANGE_SETTING',
         payload: {
           setting: key,
           value: query[key] === 'true',
         },
       });
-    });
-  };
-  yield changeSettings(history.location.search);
-  yield history.listen((params) => {
-    const { search } = params;
-    changeSettings(search);
-  });
+    }),
+  );
+}
 
-  // detect isMobileView setting on app load and window resize
-  const isMobileView = (load = false) => {
-    const currentState = global.window.innerWidth < 768;
-    const prevState = store.get('app.settings.isMobileView');
-    if (currentState !== prevState || load) {
-      reduxStore.dispatch({
-        type: 'settings/CHANGE_SETTING',
-        payload: {
-          setting: 'isMobileView',
-          value: currentState,
-        },
-      });
+function onHistoryChangesChannel(h) {
+  return eventChannel((emit) => {
+    h.listen((params) => {
+      const { search } = params;
+      emit({ search });
+    });
+
+    return () => {
+      // unsubscribe
+    };
+  });
+}
+
+function* watchHistoryChangeEvents() {
+  const onHistoryChange = yield call(onHistoryChangesChannel, history);
+  try {
+    while (true) {
+      // take(END) will cause the saga to terminate by jumping to the finally block
+      const historyChangeEvent = yield take(onHistoryChange);
+      if (historyChangeEvent.search) {
+        yield changeSettings(historyChangeEvent.search);
+      }
     }
-  };
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* isMobileView(load = false) {
+  const currentState = global.window.innerWidth < 768;
+  const prevState = store.get('app.settings.isMobileView');
+  if (currentState !== prevState || load) {
+    yield put({
+      type: actions.CHANGE_SETTING,
+      payload: {
+        setting: 'isMobileView',
+        value: currentState,
+      },
+    });
+  }
+}
+
+function onWindowChangesChannel(w) {
+  return eventChannel((emit) => {
+    w.addEventListener('resize', () => {
+      const resize = 'resize';
+      emit({ resize });
+    });
+
+    return () => {
+      // unsubscribe
+    };
+  });
+}
+
+function* watchWindowChanges() {
+  const onWindowChange = yield call(onWindowChangesChannel, window);
+  try {
+    while (true) {
+      // take(END) will cause the saga to terminate by jumping to the finally block
+      const windowChangeEvent = yield take(onWindowChange);
+
+      if (windowChangeEvent.resize) {
+        yield isMobileView();
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export function* SETUP() {
+  // load settings from url on app load
+  yield changeSettings(history.location.search);
+
+  yield fork(watchHistoryChangeEvents);
+
+  // detect isMobileView setting on appload and window resize
   yield isMobileView(true);
-  yield window.addEventListener('resize', () => {
-    isMobileView();
+
+  yield fork(watchWindowChanges);
+
+  yield race({
+    task: UPDATE_ETH_RATE(),
+    cancel: take(actions.CANCEL_UPDATE_RATE),
   });
 }
 
